@@ -39,6 +39,7 @@ import com.android.internal.telephony.gsm.SuppServiceNotification;
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.imsphone.ImsPhoneConnection;
 import com.android.phone.R;
+import com.android.internal.telephony.PhoneConstants;
 
 import java.lang.Override;
 import java.util.Arrays;
@@ -461,6 +462,11 @@ abstract class TelephonyConnection extends Connection {
     public void onAbort() {
         Log.v(this, "onAbort");
         hangup(android.telephony.DisconnectCause.LOCAL);
+    }
+
+    @Override
+    public void setLocalCallHold(boolean lchStatus) {
+        TelephonyConnectionService.setLocalCallHold(getPhone(), lchStatus);
     }
 
     @Override
@@ -1022,6 +1028,12 @@ abstract class TelephonyConnection extends Connection {
 
     void close() {
         Log.v(this, "close");
+        if (getPhone() != null) {
+            if (getPhone().getState() == PhoneConstants.State.IDLE) {
+                Log.i(this, "disable local call hold, if not already done by telecomm service");
+                setLocalCallHold(false);
+            }
+        }
         clearOriginalConnection();
         destroy();
     }

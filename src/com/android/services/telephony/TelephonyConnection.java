@@ -654,6 +654,8 @@ abstract class TelephonyConnection extends Connection {
         mOriginalConnection.addPostDialListener(mPostDialListener);
         mOriginalConnection.addListener(mOriginalConnectionListener);
 
+        updateAddress();
+
         // Set video state and capabilities
         setVideoState(mOriginalConnection.getVideoState());
         setLocalVideoCapable(mOriginalConnection.isLocalVideoCapable());

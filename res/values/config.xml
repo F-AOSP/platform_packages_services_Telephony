@@ -218,4 +218,7 @@
 
     <!-- Whether the emergency only account can make emergency calls -->
     <bool name="config_pstnCanPlaceEmergencyCalls">true</bool>
+
+    <!-- Config to enabled reading and displaying of EF_PLMN_SEL SIM file -->
+    <bool name="config_ef_plmn_sel">false</bool>
 </resources>

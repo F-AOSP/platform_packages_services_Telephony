@@ -549,7 +549,7 @@ public class TelephonyConnectionService extends ConnectionService {
 
     private Phone getPhoneForAccount(PhoneAccountHandle accountHandle, boolean isEmergency) {
         if (isEmergency) {
-            return PhoneFactory.getDefaultPhone();
+            return getFirstPhoneForEmergencyCall();
         }
 
         int subId = PhoneUtils.getSubIdForPhoneAccountHandle(accountHandle);
@@ -591,8 +591,8 @@ public class TelephonyConnectionService extends ConnectionService {
         }
 
         if (selectPhone == null) {
-            Log.d(this, "pickBestPhoneForEmergencyCall, return default phone");
-            selectPhone = PhoneFactory.getDefaultPhone();
+            Log.d(this, "pickBestPhoneForEmergencyCall, return phone 0");
+            selectPhone = PhoneFactory.getPhone(0);
         }
 
         return selectPhone;
